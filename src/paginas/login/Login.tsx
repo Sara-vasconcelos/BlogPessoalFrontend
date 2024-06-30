@@ -6,62 +6,41 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import UsuarioLogin from '../../models/UsuarioLogin';
 import { RotatingLines } from 'react-loader-spinner';
-import imageHome from '../../assets/image7.avif'
+
 //temos duas formas de navegação , por link ou pelo useNavigate
 //Link: o usuário precisa clicar nele para que seja direcionado para outra página
 //UseNavigate : redirecionar usuários ou para navegar para uma nova página em resposta a algum evento, como um clique de botão ou após o envio de um formulário.
-/*
-const  Login = () => {
 
-    let navigate = useNavigate() // variavel chamada navagate que recebe o useNavigate do react-router-dom, vai fazer a navegação da página
-
-return (
-
-
-    <div className='text-center'>
-        <h2 className="text-slate-900 text-5xl   m-4 text-center">Login</h2>
-
-        <div>
-                <button type='submit'
-                    onClick={() => { navigate('/home') }} 
-                    className='hover:underline mx-4'>
-                    Login useNavigate
-                </button>
-                <Link to='/home' className='hover:underline  mx-4'>Login por Link</Link>
-            </div>
-
-    </div>
-)
-}
-
-export default Login*/
 
 
 
 function Login() {
     const navigate = useNavigate();
-  
+  //Declara um estado local usuarioLogin como um objeto do tipo UsuarioLogin, inicializando-o como um objeto vazio.
     const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
       {} as UsuarioLogin
     );
   
     const { usuario, handleLogin } = useContext(AuthContext);
-  
+  // Usa o hook useContext para obter o estado isLoading do contexto de autenticação, que indica se uma operação de login está em andamento
     const {isLoading} = useContext(AuthContext) 
   
+    // redirecionar o usuário para a página '/home' se ele já estiver logado (token não vazio)
     useEffect(() => {
       if (usuario.token !== "") {
           navigate('/home')
       }
   }, [usuario])
   
+  //Define uma função para atualizar o estado usuarioLogin com base nos valores dos campos de entrada (inputs) do formulário.
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuarioLogin({
         ...usuarioLogin,
         [e.target.name]: e.target.value
     })
   }
-  
+  //Define uma função para lidar com o envio do formulário, evitando o comportamento padrão do formulário
+  // (recarregar a página) e chamando a função handleLogin com os dados do usuário.
   function login(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault()
     handleLogin(usuarioLogin)
@@ -73,7 +52,7 @@ function Login() {
           <form className="flex justify-center items-center flex-col w-1/2 gap-4 form" onSubmit={login}>
             <h2 className="text-white   text-5xl ">Entrar</h2>
             <div className="flex flex-col w-full">
-              <label htmlFor="usuario">Usuário</label>
+              <label htmlFor="usuario" className='text-white '>Usuário</label>
               <input
                 type="text"
                 id="usuario"
@@ -85,7 +64,7 @@ function Login() {
               />
             </div>
             <div className="flex flex-col w-full">
-              <label htmlFor="senha">Senha</label>
+              <label htmlFor="senha" className='text-white '>Senha</label>
               <input
                 type="password"
                 id="senha"
@@ -99,7 +78,7 @@ function Login() {
             <button  type='submit' className="rounded color-button hover:bg-lime-700 text-white w-1/2 py-2 flex justify-center">
              {isLoading ? <RotatingLines
               strokeColor="white"
-              strokeWidth="5"
+              strokeWidth="5"//icone de carregamento
               animationDuration="0.75"
               width="24"
               visible={true}
@@ -116,12 +95,7 @@ function Login() {
               </Link>
             </p>
           </form>
-          <div className="flex justify-center ">
-            <img src={imageHome} alt="" className='w-2/3' />
-            
-              
-      
-            </div>
+          
           <div className="fundoLogin hidden lg:block"></div>
           
         </div>

@@ -6,5 +6,5 @@ export default interface Usuario {
   usuario: string;
   foto: string;
   senha: string;
-  postagem?: Postagem [] | null;// ? : quer dizer que é opcional pode ou não ter . Pode ter postagem(Postagem[]) e null(caso não tenha )
+  postagem?: Postagem [] | null;// ? : quer dizer que é opcional ,pode ou não ter . Pode ter postagem(Postagem[]) e null(caso não tenha )
 }

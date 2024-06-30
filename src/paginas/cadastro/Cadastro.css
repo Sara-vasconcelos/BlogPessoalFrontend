@@ -1,8 +1,21 @@
 .fundoCadastro {
-    background-image: url(../../assets/cadastro.jpg);
+    background-image: url(../../assets/imageCadastro.jpg);
       background-repeat: no-repeat;
       width: 100%;
       min-height: 100vh;
       background-size: cover;
       background-position: center;
   }
+
+  .form{
+    padding: 20px 8%; 
+    margin-top: 30px;
+      background-color: #75b181;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #1d1d1d;
+      
+        
+       
+      
+    }
