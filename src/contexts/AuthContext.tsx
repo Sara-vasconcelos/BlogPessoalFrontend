@@ -2,12 +2,12 @@ import { createContext, ReactNode, useState } from "react"
 
 import UsuarioLogin from "../models/UsuarioLogin"
 import { login } from "../services/Service" // importa a função login da Service 
-// import { toastAlerta } from "../utils/toastAlerta"
+ import { toastAlerta } from "../util/toastAlerta"
 
 // Esse context está gerenciando login, logout e um estado de carregamento, 
 //e provendo essas funcionalidades para componentes filhos.
 
-
+//promisse: é quando a função ta indo até o backend , e precisa aguardar resposta|sempre é uma função async
 //Promise : é um objeto que representa a eventual conclusão (ou falha) de uma operação assíncrona e seu valor resultante
 //Promise<void> indica que a função handleLogin retorna uma promessa que, quando resolvida, não produz um valor(void)
 // especifica a forma do objeto de contexto de autenticação
@@ -28,7 +28,7 @@ export const AuthContext = createContext({} as AuthContextProps) //cria um conte
 
 //Define o componente AuthProvider, que aceitará children como props.
 export function AuthProvider({ children }: AuthProviderProps) {
-
+//AuthProvider : nome da função , poderia ser qualquer coisa 
     //Usa o hook useState para criar um estado usuario com um objeto inicial de UsuarioLogin contendo valores vazios.
     //que será alterado conforme as informações do usuário
     const [usuario, setUsuario] = useState<UsuarioLogin>({
@@ -43,8 +43,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 //useState para criar um estado isLoading, inicialmente false.
     const [isLoading, setIsLoading] = useState(false)
 
+//async : são funções que não precisam somente do react , elas precisam por exemplo do backend , no caso abaixo
+//ela está tentando logar o usuario , e para isso ela precisa acessar o backend , para pegar o token de acesso , por isso devemos usar o async, porque ela depende do backend para retornar a resposta
 
     //função handleLogin, que recebe um objeto UsuarioLogin | função assíncrona , e recebe um objeto do tipo UsuarioLogin e retorna uma promessa
+
 //async: para indicar que ela contém operações assíncronas, como o uso de await
 //await : ele pausa a função ,a promessa seja resolvida ou rejeitada 
 //e depois retoma a execução da função com o valor resolvido da promessa, ou lança um erro se a promessa for rejeitada.(catch)
@@ -52,13 +55,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setIsLoading(true)//inicia definindo isLoading como true
         try {//tenta fazer o login chamando a função login 
             await login(`/usuarios/logar`, userLogin, setUsuario)//await espera o que o login seja efetuado 
-            alert("Usuário logado com sucesso")//se bem-sucedida, exibe um alerta de sucesso 
+            toastAlerta('Usuário logado com sucesso', 'sucesso');
+            //se bem-sucedida, exibe um alerta de sucesso 
             setIsLoading(false)//define isLoading como false
 
         } catch (error) {//Se houver erro, exibe um alerta de erro e define isLoading como false.
             console.log(error)
-            alert("Dados do usuário inconsistentes")
-            setIsLoading(false)
+toastAlerta('Você precisa estar logado', 'info');        
+    setIsLoading(false)
         }
     }
 

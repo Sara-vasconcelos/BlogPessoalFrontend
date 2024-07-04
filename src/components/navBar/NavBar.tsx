@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../contexts/AuthContext'
+import './NavBar.css'
+import { toastAlerta } from '../../util/toastAlerta'
 
 
 
@@ -16,28 +18,41 @@ function Navbar() {
 //e a função logout que é chamada quando o usuário clica no link de "Sair".
     function logout() { 
         handleLogout() 
-        alert('Usuário deslogado com sucesso')
+        toastAlerta('Usuário deslogado com sucesso','sucesso')
         navigate('/login')
     }
 
-    return (
-        <>
-            <div className='w-full bg-indigo-900 text-white flex justify-center py-4'>
-                <div className="container flex justify-between text-lg">
-                    <Link to='/home' className='text-2xl font-bold uppercase'>Blog Pessoal</Link>
+    let navbarComponent
 
-                    <div className='flex gap-4'>
-                        <div className='hover:underline'>Postagens</div>
+
+
+    if(usuario.token !== ""){
+        navbarComponent = (
+
+            <div className='w-full color-navbar text-white flex justify-center py-4'>
+                <div className="container flex justify-between text-lg">
+                    <Link to='/home' className='text-2xl font-light '>OnTheBLOG</Link>
+
+                    <div className='flex gap-12 font-light'>
+                    <Link to='/postagens' className='hover:underline'>Postagens</Link>
                         <Link to='/temas' className='hover:underline'>Temas</Link> {/* se o usuário clicar será redirecionado para a página especificada*/}
                         <Link to='/cadastroTema' className='hover:underline'>Cadastrar tema</Link>  {/*experiência de navegação mais rápida e fluida para os usuários*/ }
-                        <div className='hover:underline'>Perfil</div>
-                        <Link to='' onClick={logout} className='hover:underline'>Sair</Link>{/*vai chamar a função logout quando clicar em sair */}
+                        <Link to='/perfil' className='hover:underline'>Perfil</Link>
+                      <Link to='' onClick={logout} className='hover:underline'>Sair</Link>{/*vai chamar a função logout quando clicar em sair */}
 
                     
 
                     </div>
                 </div>
             </div>
+
+        )
+    }
+
+
+    return (
+        <>
+            {navbarComponent}
         </>
     )
 }

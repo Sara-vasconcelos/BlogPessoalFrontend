@@ -16,10 +16,13 @@ const api = axios.create({//Cria uma instância personalizada do Axios
 //o cadastrar e o login, não precisa do header pq são metodos GET , ou seja , ao inves do header o objeto são os dados inseridos
 //Exporta a função para ser usada em outros módulos
 // função assíncrona que aceita uma URL, um objeto com os dados e uma função para definir os dados.
+//export const cadastrarUsuario: toda vez que eu  digitar | chamar cadastrarUsuario , é como se eu estivesse digitando toda essa função
 export const cadastrarUsuario = async(url: string, dados: Object, setDados: Function) => {
   const resposta = await api.post(url, dados)//Realiza uma requisição POST à URL especificada, enviando os dados fornecidos.
   setDados(resposta.data)//Atualiza o estado ou a variável com os dados da resposta.
-}
+}//toda vez que preciso solicitar dados do meu backend , essa solicitação é feita com uma função async
+
+//dados : Object : é o json , com os dados que serão enviados
 
 //mesma coisa que a função acima , porém para o Login 
 //POST

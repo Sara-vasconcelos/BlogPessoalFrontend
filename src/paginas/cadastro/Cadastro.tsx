@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Usuario from '../../models/Usuario'
 import { cadastrarUsuario } from '../../services/Service'
 import './Cadastro.css'
+import { toastAlerta } from '../../util/toastAlerta'
+
 
 
 function Cadastro() {
@@ -24,7 +26,7 @@ function Cadastro() {
   })
 // criamos aqui um novo estado de usuário, para receber a resposta do backend e tratar ela de forma correta
 //rmazenar a resposta do backend após o cadastro
-  const [usuarioResposta, setUsuarioResposta] = useState<Usuario>({
+  const [usuarioResposta, setUsuarioResposta] = useState<Usuario>({//Usuario é da model
     id: 0,
     nome: '',
     usuario: '',
@@ -56,8 +58,8 @@ function Cadastro() {
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuario({
-      ...usuario,
-      [e.target.name]: e.target.value
+      ...usuario,//esses tres pontinhos significa que ele mantem o que ja tem 
+      [e.target.name]: e.target.value//acrescenta o que foi digito depois no value 
     })
   }
   // a função "cadastrarNovoUsuario" será responsavel por entender que o formulário está sendo enviado, e fazer a comunicação com o nosso backend
@@ -73,18 +75,18 @@ function Cadastro() {
                 // iremos aguardar a Promisse do Axios, de que ele levará nossos dados ao servidor, e se tudo der certo, damos o alerta e fim.
 
         await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuarioResposta)
-        alert('Usuário cadastrado com sucesso')
+        toastAlerta('Usuário cadastrado com sucesso', 'sucesso')
 
       } catch (error) {
                 // caso de algum erro no cadastro que tentamos no TRY, a parte do Catch irá reconhecer isso, e dar um alerta diferente para o nosso usuário
 
-        alert('Erro ao cadastrar o Usuário')
+                toastAlerta('Erro ao cadastrar o Usuário','erro')
       }
 //senhas não coincidem ou a senha não tiver pelo menos 8 caracteres:
     } else {
             // caso tenha algum problema na validação das senhas, toda a parte acima será desconsiderada, e iremos para esse ELSE
 
-      alert('Dados inconsistentes. Verifique as informações de cadastro.')
+            toastAlerta('Dados inconsistentes. Verifique as informações de cadastro.', 'erro')
       setUsuario({ ...usuario, senha: "" }) // Reinicia o campo de Senha
       setConfirmaSenha("")                  // Reinicia o campo de Confirmar Senha
     }
@@ -101,11 +103,13 @@ function Cadastro() {
             <input
               type="text"
               id="nome"
-              name="nome"
+              name="nome" //obrigatorio , preciso colocar o mesmo nome que está no backend
               placeholder="Nome"
               className="border-2 border-t-white  rounded p-2 "
-              value={usuario.nome} 
+              value={usuario.nome} //o que vai ser preenchido| esse usuario é o que foi criado na model do front
               onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}//chama a função que atualizada as infomações 
+              //onChange : atualiza em tempo real as informações no banco de dados 
+              //
             />
           </div>
           <div className="flex flex-col w-full">

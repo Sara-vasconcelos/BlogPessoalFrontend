@@ -1,24 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /*classe que recebe os atributos abaixo que será utilizado no home.tsx*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 
 
 *{
-    font-family: "Poppins";
+    font-family: "Montserrat", sans-serif;
     padding: 0;
     margin: 0;
 }
 
 .text-color{
-    color:#588157
+    color: white
 }
 .color-button{
     background-color: #386641;
     color: white;
 }
 
+.body{
+    background-image: url(../../assets/image.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+height: 80vh;
+}
+
+.h2-home{
+    background-color: #718355;
+    color: white;
+    margin-top: 0;
+
+}
+ 
+.carrocel img{
+ width: 450px;   
+ height: 400px;
+ border-radius: 12%;
+ box-shadow: 0px 0px 10px 4px rgba(0,0,0, 0.3);
+ 
 
  
-  
+}
+.carrocel img:hover{
+    transform: translateY(-15px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease-in-out;
+}
+.carrocel{
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 40px;
+   
+   
+}
+ 
 

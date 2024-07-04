@@ -11,5 +11,5 @@ export default interface Postagem {
   texto: string;
   data: string;
   tema: Tema | null;// é obrigatorio , mas enquanto eu não tenho tema , ele pode ser  null , depois ele é preenchido
-  usuario: Usuario | null;//mesma
+  usuario: Usuario | null;//mesma coisa
 }

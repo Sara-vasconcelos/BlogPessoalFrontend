@@ -17,7 +17,7 @@ import { RotatingLines } from 'react-loader-spinner';
 function Login() {
     const navigate = useNavigate();
   //Declara um estado local usuarioLogin como um objeto do tipo UsuarioLogin, inicializando-o como um objeto vazio.
-    const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
+    const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(//é a mesma coisa que está no cadastro , porém o react faz automatico , ele cria um objeto que é do tipo UsuarioLogin da model, com os campos que tem lá , todos incializados como vazio.
       {} as UsuarioLogin
     );
   

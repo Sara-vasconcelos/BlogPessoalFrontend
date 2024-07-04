@@ -5,11 +5,14 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import Tema from '../../../models/Tema';
 import { buscar } from '../../../services/Service';
 import CardTemas from '../CardTema/CardTema';
+import { toastAlerta } from '../../../util/toastAlerta';
+
 
 function ListaTemas() {
   const [temas, setTemas] = useState<Tema[]>([]);
 
   const navigate = useNavigate();
+  //const [loading, setLoading] = useState<boolean>(true);
 
   const { usuario, handleLogout } = useContext(AuthContext);
   const token = usuario.token;
@@ -22,7 +25,7 @@ function ListaTemas() {
       });// Trata erros específicos de token expirado, exibindo um alerta e chamando a função handleLogout para desconectar o usuário.
     } catch (error: any) {
       if (error.toString().includes('403')) {
-        alert('O token expirou, favor logar novamente')
+        toastAlerta('O token expirou, logue novamente', 'info')
         handleLogout()
       }
     }
@@ -30,7 +33,7 @@ function ListaTemas() {
 //verificar se o usuário está logado. Se o token estiver vazio, exibe um alerta e redireciona para a página de login.
   useEffect(() => {
     if (token === '') {
-      alert('Você precisa estar logado');
+      toastAlerta('Você precisa estar logado', 'info');
       navigate('/login');
     }
   }, [token]);
@@ -51,7 +54,15 @@ function ListaTemas() {
           wrapperStyle={{}}
           wrapperClass="dna-wrapper mx-auto"
         />
+
+        
       )}
+
+{/* {temas.length === 0 && !loading && (
+        <p className="text-center">Não tem tema</p>
+      )} */}
+
+
       <div className="flex justify-center w-full my-4">
         <div className="container flex flex-col">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

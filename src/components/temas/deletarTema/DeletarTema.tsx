@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router'
 import { AuthContext } from '../../../contexts/AuthContext'
 import Tema from '../../../models/Tema'
 import { buscar, deletar } from '../../../services/Service'
+import { toastAlerta } from '../../../util/toastAlerta'
+
 
 function DeletarTema() {
     // variável de estado 'tema' e sua função de atualização 'setTema', inicializando tema como um objeto vazio do tipo 'Tema.'
@@ -25,7 +27,7 @@ function DeletarTema() {
             })//Se ocorrer um erro e ele contiver '403', alerta o usuário que o token expirou e chama handleLogout para deslogar o usuário.
         } catch (error: any) {//error: any : é usada para especificar que o tipo do parâmetro error pode ser qualquer coisa. Isso significa que error pode ser um objeto, uma string, um número, ou qualquer outro tipo
             if (error.toString().includes('403')) {
-                alert('O token expirou, favor logar novamente')
+                toastAlerta('O token expirou, faça login novamente', 'info')
                 handleLogout()
             }
         }
@@ -33,7 +35,7 @@ function DeletarTema() {
 //: Define um efeito colateral que verifica se o usuário está logado.
     useEffect(() => {
         if (token === '') {// Se o token estiver vazio, alerta o usuário que ele precisa estar logado e navega para a página de login.
-            alert('Você precisa estar logado')
+            toastAlerta('Você precisa estar logado', 'info')
             navigate('/login')
         }
     }, [token])
@@ -59,10 +61,10 @@ function DeletarTema() {
                 }
             })
 //Se a requisição for bem-sucedida, alerta o usuário que o tema foi apagado com sucesso.
-            alert('Tema apagado com sucesso')
+toastAlerta('Tema apagado com sucesso', 'sucesso')
 //Se ocorrer um erro, alerta o usuário que houve um erro ao apagar o tema
         } catch (error) {
-            alert('Erro ao apagar o Tema')
+            toastAlerta('Erro ao apagar o Tema', 'erro')
         }
 
         retornar()//Chama a função retornar para navegar de volta para a página de temas.
