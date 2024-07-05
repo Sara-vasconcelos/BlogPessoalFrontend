@@ -10,7 +10,7 @@ import axios from "axios";
 //contêm métodos que realizam operações assíncronas, como a realização de requisições HTTP, e retornam Promises com os resultados dessas operações.
 
 const api = axios.create({//Cria uma instância personalizada do Axios
-  baseURL: 'https://blogpessoal-5eix.onrender.com/'// URL base para todas as requisições HTTP realizadas através dessa instância do Axios.
+  baseURL: import.meta.env.VITE_API_URL// URL base para todas as requisições HTTP realizadas através dessa instância do Axios.
   //no caso a do Render
 })
 //o cadastrar e o login, não precisa do header pq são metodos GET , ou seja , ao inves do header o objeto são os dados inseridos
